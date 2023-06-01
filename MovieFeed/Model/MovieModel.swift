@@ -7,10 +7,16 @@
 
 import Foundation
 
+struct Movies: Decodable {
+    var results: [MovieModel]
+}
 
-struct MovieModel: Codable {
-    var id: String
+struct MovieModel: Decodable, Identifiable {
+    var id: Int
     var title: String
     var overview: String? = nil
     var release_date: String? = nil
+    var vote_average: Double? = nil
+    var poster_path: String? = nil
+    var genre_ids: [Int]? = nil
 }
