@@ -22,35 +22,46 @@ struct ContentListView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 //MARK: - Popular Movies
                 Section("Popular Movies") {
-                    ListRowView {
+                    CollectionRowHorizontalView {
                         ForEach(viewModel.movies.results) { item in
                             PosterView(poster: item.poster_path ?? "",
                                        title: item.title)
                         }
-                    } .onAppear{
-                        Task {
-                           await viewModel.getMovies()
-                        }
+                    } .task {
+                        await viewModel.getMovies()
                     }
                 }
                 
                 //MARK: - Popular TV Series
                 Section("Popular TV Series") {
-                    ListRowView {
+                    CollectionRowHorizontalView {
                         ForEach(viewModel.tvSeries.results) { item in
                             PosterView(poster: item.poster_path ?? "",
                                        title: item.name)
                         }
                     }
-                    .onAppear{
-                        Task {
-                            await viewModel.getTVSeries()
+                    .task {
+                        await viewModel.getTVSeries()
+                    }
+                    
+                }
+                
+                //MARK: - Trendings
+                Section("Trendings") {
+                    CollectionRowVerticalView {
+                        ForEach(viewModel.trendings.results) { item in
+                            PosterView(poster: item.poster_path ?? "",
+                                       title: item.title ?? item.name ?? "")
                         }
                     }
+                    .task {
+                        await viewModel.getTrendings()
+                    }
+                    
                 }
                 
             }
@@ -64,6 +75,5 @@ struct ContentListView: View {
 struct ContentListView_Previews: PreviewProvider {
     static var previews: some View {
         ContentListView()
-            .preferredColorScheme(.dark)
     }
 }

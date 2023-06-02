@@ -15,7 +15,7 @@ extension Image {
     func iconModifier() -> some View {
         self.resizable()
             .scaledToFit()
-            .frame(height: 100, alignment: .center)
+            .frame(height: 200, alignment: .center)
     }
 }
 struct PosterView: View {
@@ -35,7 +35,7 @@ struct PosterView: View {
                     .cornerRadius(12.0)
                 
             } else {
-                Image(systemName: "photo.fill").iconModifier()
+                Image("posterNotAvailable").iconModifier()
             }
                 
             Text(title)

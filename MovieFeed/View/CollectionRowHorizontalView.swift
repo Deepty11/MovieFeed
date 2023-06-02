@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListRowView<Content: View>: View {
+struct CollectionRowHorizontalView<Content: View>: View {
     var content: Content
     
     init( @ViewBuilder content: () -> Content) {
@@ -20,6 +20,7 @@ struct ListRowView<Content: View>: View {
                 content
             }
         }
+        .frame(height: 200)
         .listRowBackground(Color.clear)
         .listRowInsets(EdgeInsets(top: 2,
                                   leading: 2,
