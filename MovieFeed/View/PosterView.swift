@@ -19,26 +19,24 @@ extension Image {
     }
 }
 struct PosterView: View {
+    @StateObject var cacheManager = CacheManager()
+    
     let poster: String
     let title: String
     
     var body: some View {
         VStack(spacing: 2.0) {
-            
-            AsyncImage(url: URL(string: "\(APIURLs.baseImageURL)/\(poster)"), transaction: Transaction(animation: .easeIn(duration: 0.5))) { phase in
-                switch phase {
-                case .success(let image):
-                    image.imageModifier()
-                case .failure(_), .empty:
-                    Image(systemName: "photo.fill").iconModifier()
+            if let data = cacheManager.data,
+               let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .imageModifier()
+                    .background(Color.black)
+                    .frame(height: 200)
+                    .cornerRadius(12.0)
                 
-                @unknown default:
-                    Image(systemName: "photo.fill").iconModifier()
-                }
+            } else {
+                Image(systemName: "photo.fill").iconModifier()
             }
-            .background(Color.black)
-            .frame(height: 200)
-            .cornerRadius(12.0)
                 
             Text(title)
                 .font(.system(.footnote))
@@ -46,6 +44,9 @@ struct PosterView: View {
                 .foregroundColor(.secondary)
                 .frame(width: 100)
                 .lineLimit(2)
+        }
+        .task {
+            await cacheManager.loadImage(from: poster)
         }
     }
 }

@@ -45,4 +45,18 @@ class APIService {
         
         return URL(string: urlString)
     }
+    
+    func retrieveImage(from url: String) async throws -> Data? {
+        let urlString = "\(APIURLs.baseImageURL)/\(url)"
+        
+        guard let url = URL(string: urlString) else { throw ErrorType.NetworkError }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        return data
+    }
+    
+    enum ErrorType: Error {
+        case NetworkError
+    }
 }
