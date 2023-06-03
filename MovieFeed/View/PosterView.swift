@@ -9,9 +9,14 @@ import SwiftUI
 
 extension Image {
     func imageModifier() -> some View {
-        self.resizable().scaledToFit()
+        self.resizable()
+            .scaledToFit()
+            .shadow(color: .black,
+                    radius: 10,
+                    x:2,
+                    y:2)
     }
-    
+
     func iconModifier() -> some View {
         self.resizable()
             .scaledToFit()

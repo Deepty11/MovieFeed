@@ -7,11 +7,27 @@
 
 import SwiftUI
 
+extension View {
+    @ViewBuilder func isHidden(_ isHidden: Bool) -> some View {
+        if isHidden {
+            self.hidden()
+        } else {
+            self
+        }
+    }
+}
+
+
 struct ContentListView: View {
     @StateObject private var viewModel = ContentViewModel()
+    @State private var isHidden: Bool = false
     
     init() {
         navigationBarAppearance()
+    }
+    
+    func createProgressView() -> some View {
+        ProgressView()
     }
     
     func navigationBarAppearance() {
@@ -23,50 +39,57 @@ struct ContentListView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                //MARK: - Popular Movies
-                Section("Popular Movies") {
-                    CollectionRowHorizontalView {
-                        ForEach(viewModel.movies.results) { item in
-                            PosterView(poster: item.poster_path ?? "",
-                                       title: item.title)
-                        }
-                    } .task {
-                        await viewModel.getMovies()
-                    }
-                }
-                
-                //MARK: - Popular TV Series
-                Section("Popular TV Series") {
-                    CollectionRowHorizontalView {
-                        ForEach(viewModel.tvSeries.results) { item in
-                            PosterView(poster: item.poster_path ?? "",
-                                       title: item.name)
-                        }
-                    }
-                    .task {
-                        await viewModel.getTVSeries()
+            ZStack {
+                List {
+                    //MARK: - Popular Movies
+                    Section("Popular Movies") {
+                        CollectionRowHorizontalView {
+                            ForEach(viewModel.movies.results) { item in
+                                PosterView(poster: item.poster_path ?? "",
+                                           title: item.title)
+                            }
+                        } 
                     }
                     
-                }
-                
-                //MARK: - Trendings
-                Section("Trendings") {
-                    CollectionRowVerticalView {
-                        ForEach(viewModel.trendings.results) { item in
-                            PosterView(poster: item.poster_path ?? "",
-                                       title: item.title ?? item.name ?? "")
+                    //MARK: - Popular TV Series
+                    Section("Popular TV Series") {
+                        CollectionRowHorizontalView {
+                            ForEach(viewModel.tvSeries.results) { item in
+                                PosterView(poster: item.poster_path ?? "",
+                                           title: item.name)
+                            }
                         }
-                    }
-                    .task {
-                        await viewModel.getTrendings()
+                        
                     }
                     
+                    //MARK: - Trendings
+                    Section("Trendings") {
+                        CollectionRowVerticalView {
+                            ForEach(viewModel.trendings.results) { item in
+                                PosterView(poster: item.poster_path ?? "",
+                                           title: item.title ?? item.name ?? "")
+                            }
+                        }
+                        
+                    }
                 }
+                .task {
+                    let _ = await viewModel.getMovies()
+                    let _ = await viewModel.getTVSeries()
+                    let _ = await viewModel.getTrendings()
+                    withAnimation(.easeOut(duration: 10)) {
+                        isHidden = true
+                        
+                    }
+                }
+                .navigationTitle("🍿 Movie Feed")
                 
-            }
-            .navigationTitle("🍿 Movie Feed")
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .tint(.red)
+                    .isHidden(isHidden)
             .navigationBarTitleDisplayMode(.inline)
+            }
         }
         
     }
