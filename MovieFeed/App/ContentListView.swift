@@ -45,8 +45,11 @@ struct ContentListView: View {
                     Section("Popular Movies") {
                         CollectionRowHorizontalView {
                             ForEach(viewModel.movies.results) { item in
-                                PosterView(poster: item.poster_path ?? "",
-                                           title: item.title)
+                                NavigationLink(destination: ContentDetailView(id: item.id, mediaType: .movie)) {
+                                    PosterView(poster: item.poster_path ?? "",
+                                               title: item.title ?? "")
+                                    
+                                }
                             }
                         } 
                     }
@@ -56,7 +59,7 @@ struct ContentListView: View {
                         CollectionRowHorizontalView {
                             ForEach(viewModel.tvSeries.results) { item in
                                 PosterView(poster: item.poster_path ?? "",
-                                           title: item.name)
+                                           title: item.name ?? "")
                             }
                         }
                         
@@ -77,6 +80,7 @@ struct ContentListView: View {
                     let _ = await viewModel.getMovies()
                     let _ = await viewModel.getTVSeries()
                     let _ = await viewModel.getTrendings()
+                    
                     withAnimation(.easeOut(duration: 10)) {
                         isHidden = true
                         

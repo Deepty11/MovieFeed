@@ -11,22 +11,30 @@ enum MediaType: String {
     case movie = "movie"
     case tv = "tv"
 }
-struct Trendings: Codable {
-    var results: [TrendingModel]
+
+struct Contents: Codable {
+    var results: [ContentModel]
 }
 
-struct TrendingModel: Codable, Identifiable {
+struct ContentModel: Codable, Identifiable {
     var id: Int
     var name : String? = nil
     var title: String? = nil
+    var overview: String? = nil
     var poster_path: String?
+    var backdrop_path: String?
     var first_air_date: String? = nil
     var release_date: String? = nil
-    var media_type: String
+    var media_type: String? = nil
     var vote_average: Double? = nil
-    var genre_ids: [Int]? = nil
+    var genre: [Genre]? = nil
     
     var mediaType: MediaType {
        return media_type == "movie" ? .movie : .tv
     }
+}
+
+struct Genre: Codable {
+    var id: Int
+    var name: String
 }

@@ -8,13 +8,15 @@
 import Foundation
 
 class ContentViewModel: ObservableObject {
-    @Published var movies = Movies(results: [])
-    @Published var tvSeries = TVSerieses(results: [])
-    @Published var trendings = Trendings(results: [])
+    @Published var movies = Contents(results: [])
+    @Published var tvSeries = Contents(results: [])
+    @Published var trendings = Contents(results: [])
+    
+    private let apiService = APIService()
     
     func getMovies() async {
         Task {
-            let fetchedMovies: Movies = try await APIService.fetchList(
+            let fetchedMovies: Contents = try await apiService.fetch(
                 for: APIURLs.basePopularMovieURL,
                 apiKey: APIURLs.apiKey,
                 releaseYear: APIURLs.releaseYear,
@@ -28,7 +30,7 @@ class ContentViewModel: ObservableObject {
     
     func getTVSeries() async {
         Task {
-            let fetchedTVSeries: TVSerieses = try await APIService.fetchList(
+            let fetchedTVSeries: Contents = try await apiService.fetch(
                 for: APIURLs.basePopularTVSeriesURL,
                 apiKey: APIURLs.apiKey,
                 releaseYear: APIURLs.releaseYear,
@@ -42,7 +44,7 @@ class ContentViewModel: ObservableObject {
     
     func getTrendings() async {
         Task {
-            let fetchedTrendings: Trendings = try await APIService.fetchList(
+            let fetchedTrendings: Contents = try await apiService.fetch(
                 for: APIURLs.baseTrendingContentURL,
                 apiKey: APIURLs.apiKey)
             DispatchQueue.main.async {[weak self] in

@@ -8,13 +8,15 @@
 import Foundation
 
 class APIService {
-    static func fetchList<T: Decodable>(for baseURL: String,
-                 apiKey: String,
-                 releaseYear: String? = nil,
-                 sortedBy: String? = nil ) async throws -> T {
+    func fetch<T: Decodable>(for baseURL: String,
+                             id: String? = nil,
+                             apiKey: String,
+                             releaseYear: String? = nil,
+                             sortedBy: String? = nil ) async throws -> T {
         
         
         if let url = createURL(with: baseURL,
+                               id: id,
                                apiKey: apiKey,
                                releaseYear: releaseYear,
                                sortedBy: sortedBy) {
@@ -28,16 +30,23 @@ class APIService {
                 fatalError(error.localizedDescription)
             }
         } else {
-            fatalError("Data could not be parsed")
+            fatalError("URL is invalid")
         }
     }
     
     //https://api.themoviedb.org/3/discover/movie?api_key=b4f512f698798cd4e32e49b30e945544&primary_release_year=2020&sort_by=vote_average.desc
-    private static func createURL(with baseURL: String,
-                   apiKey: String,
-                   releaseYear: String? = nil,
-                   sortedBy: String? = nil) -> URL? {
-        var urlString = "\(baseURL)?\(apiKey)"
+    private func createURL(with baseURL: String,
+                           id: String? = nil,
+                           apiKey: String,
+                           releaseYear: String? = nil,
+                           sortedBy: String? = nil) -> URL? {
+        var urlString = baseURL
+         
+        if let id {
+            urlString += "/\(id)"
+        }
+        
+        urlString += "?\(apiKey)"
         
         if let releaseYear { urlString += "&\(releaseYear)" }
         
@@ -56,7 +65,8 @@ class APIService {
         return data
     }
     
-    enum ErrorType: Error {
-        case NetworkError
-    }
+}
+
+enum ErrorType: Error {
+    case NetworkError
 }
