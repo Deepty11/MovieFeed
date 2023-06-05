@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D258ADB2A2D9DB000D164D0 /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D258ADA2A2D9DB000D164D0 /* GenreView.swift */; };
+		3D258ADE2A2DDC4A00D164D0 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D258ADD2A2DDC4A00D164D0 /* String+Substring.swift */; };
 		3D2854E32A25A508008A24D7 /* MovieFeedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2854E22A25A508008A24D7 /* MovieFeedApp.swift */; };
 		3D2854E52A25A508008A24D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2854E42A25A508008A24D7 /* ContentView.swift */; };
 		3D2854E72A25A50B008A24D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2854E62A25A50B008A24D7 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		3D258ADA2A2D9DB000D164D0 /* GenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
+		3D258ADD2A2DDC4A00D164D0 /* String+Substring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		3D2854DF2A25A508008A24D7 /* MovieFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2854E22A25A508008A24D7 /* MovieFeedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFeedApp.swift; sourceTree = "<group>"; };
 		3D2854E42A25A508008A24D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D258ADC2A2DDC3100D164D0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3D258ADD2A2DDC4A00D164D0 /* String+Substring.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		3D2854D62A25A508008A24D7 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 		3D2854E12A25A508008A24D7 /* MovieFeed */ = {
 			isa = PBXGroup;
 			children = (
+				3D258ADC2A2DDC3100D164D0 /* Extension */,
 				FDE8DDF92A27A877005A16A3 /* App */,
 				FD64CE122A2663CE00EFAF9B /* ViewModel */,
 				3DDB5C992A25DA3500729AAD /* Utilities */,
@@ -273,6 +284,7 @@
 				FD7B6A0E2A29B85D00857E38 /* CacheImage.swift in Sources */,
 				FD5E2B822A2A604100796739 /* CollectionRowVerticalView.swift in Sources */,
 				3DDB5C9B2A25DA5A00729AAD /* ApiURLStrings.swift in Sources */,
+				3D258ADE2A2DDC4A00D164D0 /* String+Substring.swift in Sources */,
 				3DDB5C982A25D7DC00729AAD /* ApiService.swift in Sources */,
 				3DDB5C962A25CE0C00729AAD /* PosterView.swift in Sources */,
 			);

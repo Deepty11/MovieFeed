@@ -17,7 +17,6 @@ extension View {
     }
 }
 
-
 struct ContentListView: View {
     @StateObject private var viewModel = ContentViewModel()
     @State private var isHidden: Bool = false
@@ -25,10 +24,6 @@ struct ContentListView: View {
     init() {
         navigationBarAppearance()
     }
-//
-//    func createProgressView() -> some View {
-//        ProgressView()
-//    }
     
     func navigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
@@ -98,7 +93,7 @@ struct ContentListView: View {
                 
                 ProgressView()
                     .progressViewStyle(.circular)
-                    .tint(.red)
+                    .tint(.gray)
                     .isHidden(isHidden)
             .navigationBarTitleDisplayMode(.inline)
             }

@@ -15,6 +15,10 @@ struct ContentDetailView: View {
     var id: Int
     var mediaType: MediaType
     
+    // For debug purpose
+    func printMe() {
+        print("ID: \(id)")
+    }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -41,8 +45,12 @@ struct ContentDetailView: View {
                     .multilineTextAlignment(.center)
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.bottom, 10)
                     .padding(.top, 10)
+                
+                //MARK: Original Title/ Name
+                Text("\(viewModel.content.original_title ?? viewModel.content.original_name ?? "") (Original \(mediaType == .movie ? "Title" : "Name"))")
+                //MARK: Content Type
+                Text("\(mediaType.rawValue)・\(viewModel.content.duration)")
 
                 
                 //MARK: Genre Lists
@@ -69,11 +77,14 @@ struct ContentDetailView: View {
                 isHidden = true
             }
         }
+        .onAppear{
+            printMe()
+        }
     }
 }
 
 struct ContentDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentDetailView(id: 1135778, mediaType: .movie)
+        ContentDetailView(id: 227953, mediaType: .tv)
     }
 }
