@@ -20,7 +20,7 @@ struct CollectionRowHorizontalView<Content: View>: View {
                 content
             }
         }
-        .frame(height: 200)
+        .frame(height: 250)
         .listRowBackground(Color.clear)
         .listRowInsets(EdgeInsets(top: 2,
                                   leading: 2,

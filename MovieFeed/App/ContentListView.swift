@@ -58,8 +58,12 @@ struct ContentListView: View {
                     Section("Popular TV Series") {
                         CollectionRowHorizontalView {
                             ForEach(viewModel.tvSeries.results) { item in
-                                PosterView(poster: item.poster_path ?? "",
-                                           title: item.name ?? "")
+                                NavigationLink(destination: ContentDetailView(id: item.id, mediaType: .tv)) {
+                                    PosterView(poster: item.poster_path ?? "",
+                                               title: item.name ?? "")
+                                    
+                                }
+                                
                             }
                         }
                         
@@ -69,8 +73,12 @@ struct ContentListView: View {
                     Section("Trendings") {
                         CollectionRowVerticalView {
                             ForEach(viewModel.trendings.results) { item in
-                                PosterView(poster: item.poster_path ?? "",
-                                           title: item.title ?? item.name ?? "")
+                                NavigationLink(destination: ContentDetailView(id: item.id, mediaType: item.mediaType)) {
+                                    PosterView(poster: item.poster_path ?? "",
+                                               title: item.title ?? item.name ?? "")
+                                    
+                                }
+                                
                             }
                         }
                         
@@ -95,6 +103,7 @@ struct ContentListView: View {
             .navigationBarTitleDisplayMode(.inline)
             }
         }
+        
         
     }
 }

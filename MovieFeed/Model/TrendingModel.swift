@@ -27,14 +27,14 @@ struct ContentModel: Codable, Identifiable {
     var release_date: String? = nil
     var media_type: String? = nil
     var vote_average: Double? = nil
-    var genre: [Genre]? = nil
+    var genres: [Genre]? = nil
     
     var mediaType: MediaType {
        return media_type == "movie" ? .movie : .tv
     }
 }
 
-struct Genre: Codable {
+struct Genre: Codable, Identifiable {
     var id: Int
     var name: String
 }

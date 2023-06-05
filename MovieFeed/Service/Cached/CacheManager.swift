@@ -24,7 +24,10 @@ class CacheManager: ObservableObject {
         } else {
             do {
                 data = try await apiService.retrieveImage(from: urlString)
-                cache.add(for: urlString as NSString, object: data as! NSData)
+                 
+                guard let data else { return }
+                
+                cache.add(for: urlString as NSString, object: data as NSData)
                 
             } catch {
                 print(error.localizedDescription)

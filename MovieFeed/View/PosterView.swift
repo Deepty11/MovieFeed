@@ -22,7 +22,16 @@ extension Image {
             .scaledToFit()
             .frame(height: 200, alignment: .center)
     }
+    
+    func backDropImageModifier() -> some View {
+        self
+            .resizable()
+            .scaledToFit()
+            .background(Color.black)
+            .frame(width: UIScreen.main.bounds.width)
+    }
 }
+
 struct PosterView: View {
     @StateObject var cacheManager = CacheManager()
     

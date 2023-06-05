@@ -23,7 +23,7 @@ class APIService {
             
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
-                print(String(data: data, encoding: .ascii) ?? "")
+                //print(String(data: data, encoding: .ascii) ?? "")
                 let parsedData = try JSONDecoder().decode(T.self, from: data)
                 return parsedData
             } catch {
