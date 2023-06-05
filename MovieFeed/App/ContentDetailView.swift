@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentDetailView: View {
     @StateObject private var viewModel = DetailViewModel()
     @StateObject private var cacheManager = CacheManager()
+    @State private var isHidden: Bool = false
+    
     var id: Int
     var mediaType: MediaType
     
@@ -25,7 +27,14 @@ struct ContentDetailView: View {
                 } else {
                     Image("imageNotAvailable")
                         .backDropImageModifier()
+                        .overlay {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .tint(.gray)
+                                .isHidden(isHidden)
+                        }
                 }
+        
                 // MARK: Title
                 Text(viewModel.content.title ?? viewModel.content.name ?? "")
                     .lineLimit(2)
@@ -54,7 +63,11 @@ struct ContentDetailView: View {
         .navigationTitle("Details")
         .task {
             await viewModel.fetchDetails(for: id, mediaType: mediaType)
-            await cacheManager.loadImage(from: viewModel.content.backdrop_path ?? "")
+           let _ = await cacheManager.loadImage(from: viewModel.content.backdrop_path ?? "")
+            
+            withAnimation {
+                isHidden = true
+            }
         }
     }
 }

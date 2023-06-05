@@ -25,10 +25,10 @@ struct ContentListView: View {
     init() {
         navigationBarAppearance()
     }
-    
-    func createProgressView() -> some View {
-        ProgressView()
-    }
+//
+//    func createProgressView() -> some View {
+//        ProgressView()
+//    }
     
     func navigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
