@@ -23,18 +23,16 @@ class APIService {
             
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
-                //print(String(data: data, encoding: .ascii) ?? "")
                 let parsedData = try JSONDecoder().decode(T.self, from: data)
                 return parsedData
             } catch {
-                fatalError(error.localizedDescription)
+                throw ErrorType.JSONParseError
             }
         } else {
-            fatalError("URL is invalid")
+            throw ErrorType.InvalidURL
         }
     }
     
-    //https://api.themoviedb.org/3/discover/movie?api_key=b4f512f698798cd4e32e49b30e945544&primary_release_year=2020&sort_by=vote_average.desc
     private func createURL(with baseURL: String,
                            id: String? = nil,
                            apiKey: String,
@@ -69,4 +67,6 @@ class APIService {
 
 enum ErrorType: Error {
     case NetworkError
+    case InvalidURL
+    case JSONParseError
 }

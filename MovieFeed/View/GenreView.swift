@@ -12,7 +12,7 @@ struct GenreView: View {
     var body: some View {
         Text(name)
             .padding(EdgeInsets(top: 2, leading: 8, bottom: 2, trailing: 8))
-            .background(Rectangle().fill(Color("TitleColor")).cornerRadius(10))
+            .background(Rectangle().fill(Color("titleColor")).cornerRadius(10))
     }
 }
 

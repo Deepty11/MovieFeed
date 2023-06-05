@@ -49,8 +49,11 @@ struct ContentDetailView: View {
                 
                 //MARK: Original Title/ Name
                 Text("\(viewModel.content.original_title ?? viewModel.content.original_name ?? "") (Original \(mediaType == .movie ? "Title" : "Name"))")
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                
                 //MARK: Content Type
-                Text("\(mediaType.rawValue)・\(viewModel.content.duration)")
+                Text("\(mediaType.rawValue) \(viewModel.content.numberOfEpisodes)・\(viewModel.content.duration)")
 
                 
                 //MARK: Genre Lists
@@ -61,11 +64,18 @@ struct ContentDetailView: View {
                         }
                     }
                 }
+                
                 // MARK: Overview
                 Text(viewModel.content.overview ?? "")
-                    .font(.headline)
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                
+                //MARK: Home page
+                if let homePage = viewModel.content.homepage {
+                    HomePageView(urlString: homePage)
+                }
             }
         }
         .navigationTitle("Details")
@@ -73,9 +83,7 @@ struct ContentDetailView: View {
             await viewModel.fetchDetails(for: id, mediaType: mediaType)
            let _ = await cacheManager.loadImage(from: viewModel.content.backdrop_path ?? "")
             
-            withAnimation {
-                isHidden = true
-            }
+            withAnimation { isHidden = true }
         }
         .onAppear{
             printMe()

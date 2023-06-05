@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-extension View {
-    @ViewBuilder func isHidden(_ isHidden: Bool) -> some View {
-        if isHidden {
-            self.hidden()
-        } else {
-            self
-        }
-    }
-}
-
 struct ContentListView: View {
     @StateObject private var viewModel = ContentViewModel()
     @State private var isHidden: Bool = false
@@ -27,7 +17,7 @@ struct ContentListView: View {
     
     func navigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(named: "navigationColor")
+        appearance.backgroundColor = UIColor.black
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
@@ -89,17 +79,16 @@ struct ContentListView: View {
                         
                     }
                 }
-                .navigationTitle("🍿 Movie Feed")
+                .navigationTitle("Movie Feed")
+                .navigationBarTitleDisplayMode(.large)
                 
                 ProgressView()
                     .progressViewStyle(.circular)
                     .tint(.gray)
                     .isHidden(isHidden)
-            .navigationBarTitleDisplayMode(.inline)
             }
         }
-        
-        
+         
     }
 }
 
