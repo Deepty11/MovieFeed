@@ -21,12 +21,10 @@ struct HomePageView: View {
                 
                 Group {
                     Image(systemName: "arrow.up.right.square")
-                        
                     
                     Link("Home Page", destination: URL(string: urlString) ?? URL(string: "https://en.wikipedia.org")!)
                 }
                 .foregroundColor(Color("titleColor"))
-                
                 
             }
         }

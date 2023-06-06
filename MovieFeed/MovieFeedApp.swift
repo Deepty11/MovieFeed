@@ -9,13 +9,10 @@ import SwiftUI
 
 @main
 struct MovieFeedApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             ContentListView()
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
